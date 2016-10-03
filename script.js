@@ -12,9 +12,9 @@ function Fruit (name, price, inventory, avgPrice, totalSpent) {
 		if (this.price >= 0.5 && this.price <= 9.99) {
 			this.price += (randomNumber(-50, 50)/100);
 		} else if (this.price < 0.5) {
-			this.price = 0.5;
+			this.price = 0.5 + (randomNumber(0, 50/100));
 		} else if (this.price > 9.99) {
-			this.price = 9.99;
+			this.price = 9.99 - (randomNumber(0, 50/100));
 		}
 	}
 }
@@ -35,7 +35,17 @@ $(document).ready(function(){
 		$wallet = $wallet - apple.price;
 		$('.apple').find('#inventory').find('span').remove();
 		$('.apple').find('#inventory').append('<span>' + apple.inventory + '</span>');
+		$('.apple').find('#avgPrice').find('span').remove();
+		$('.apple').find('#avgPrice').append('<span>' + apple.avePrice.toFixed(2) + '</span>');
 		console.log(apple);
+	})
+	$('#aa').on('click', function(){
+		if (apple.inventory > 0) {
+		apple.inventory -= 1;
+		$wallet = $wallet + apple.price;
+		$('.apple').find('#inventory').find('span').remove();
+		$('.apple').find('#inventory').append('<span>' + apple.inventory + '</span>');
+		}
 	})
 
 	$('#b').on('click', function(){
@@ -45,7 +55,17 @@ $(document).ready(function(){
 		$wallet = $wallet - banana.price;
 		$('.banana').find('#inventory').find('span').remove();
 		$('.banana').find('#inventory').append('<span>' + banana.inventory + '</span>');
+		$('.banana').find('#avgPrice').find('span').remove();
+		$('.banana').find('#avgPrice').append('<span>' + banana.avePrice.toFixed(2) + '</span>');
 		console.log(banana);
+		})
+		$('#bb').on('click', function(){
+			if (banana.inventory > 0){
+			banana.inventory -= 1;
+			$wallet = $wallet + banana.price;
+			$('.banana').find('#inventory').find('span').remove();
+			$('.banana').find('#inventory').append('<span>' + banana.inventory + '</span>');
+			}
 		})
 
 	$('#c').on('click', function(){
@@ -55,7 +75,17 @@ $(document).ready(function(){
 			$wallet = $wallet - grape.price;
 			$('.grape').find('#inventory').find('span').remove();
 			$('.grape').find('#inventory').append('<span>' + grape.inventory + '</span>');
+			$('.grape').find('#avgPrice').find('span').remove();
+			$('.grape').find('#avgPrice').append('<span>' + grape.avePrice.toFixed(2) + '</span>');
 			console.log(grape);
+			})
+			$('#cc').on('click', function(){
+				if (grape.inventory > 0) {
+				grape.inventory -= 1;
+				$wallet = $wallet + grape.price;
+				$('.grape').find('#inventory').find('span').remove();
+				$('.grape').find('#inventory').append('<span>' + grape.inventory + '</span>');
+				}
 			})
 	$('#d').on('click', function(){
 			orange.inventory += 1;
@@ -64,14 +94,31 @@ $(document).ready(function(){
 			$wallet = $wallet - orange.price;
 			$('.orange').find('#inventory').find('span').remove();
 			$('.orange').find('#inventory').append('<span>' + orange.inventory + '</span>');
+			$('.orange').find('#avgPrice').find('span').remove();
+			$('.orange').find('#avgPrice').append('<span>' + orange.avePrice.toFixed(2) + '</span>');
 			console.log(orange);
 	})
-$('button').on('click', function (){
+	$('#dd').on('click', function(){
+		if (orange.inventory > 0){
+		orange.inventory -= 1;
+		$wallet = $wallet + orange.price;
+		$('.orange').find('#inventory').find('span').remove();
+		$('.orange').find('#inventory').append('<span>' + orange.inventory + '</span>');
+		}
+	})
+
+$('.buy').on('click', function (){
 	var $para = $('<p id="totalCash"></p>');
 	$para.append($wallet.toFixed(2));
 	$('header').find('#totalCash').remove();
 	$('header').append($para);
 	});
+	$('.sell').on('click', function (){
+		var $para = $('<p id="totalCash"></p>');
+		$para.append($wallet.toFixed(2));
+		$('header').find('#totalCash').remove();
+		$('header').append($para);
+		});
 	setInterval(priceUpdate, 1500);
 
 	function priceUpdate () {
