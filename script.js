@@ -29,6 +29,7 @@ var $pricePara = $('<p class="price"></p>');
 $(document).ready(function(){
 
 	$('#a').on('click', function(){
+		if ($wallet > 0 && $wallet >= apple.price ) {
 		apple.inventory += 1;
 		apple.totalSpent += apple.price;
 		apple.avePrice = apple.totalSpent / apple.inventory;
@@ -37,8 +38,10 @@ $(document).ready(function(){
 		$('.apple').find('#inventory').append('<span>' + apple.inventory + '</span>');
 		$('.apple').find('#avgPrice').find('span').remove();
 		$('.apple').find('#avgPrice').append('<span>' + apple.avePrice.toFixed(2) + '</span>');
-		console.log(apple);
-	})
+	} else {
+		alert('You can\'t do that! You gotta have money to buy stuff!');
+	}
+})
 	$('#aa').on('click', function(){
 		if (apple.inventory > 0) {
 		apple.inventory -= 1;
@@ -49,6 +52,7 @@ $(document).ready(function(){
 	})
 
 	$('#b').on('click', function(){
+		if ($wallet > 0 && $wallet > banana.price ) {
 		banana.inventory += 1;
 		banana.totalSpent += banana.price;
 		banana.avePrice = banana.totalSpent / banana.inventory;
@@ -57,8 +61,10 @@ $(document).ready(function(){
 		$('.banana').find('#inventory').append('<span>' + banana.inventory + '</span>');
 		$('.banana').find('#avgPrice').find('span').remove();
 		$('.banana').find('#avgPrice').append('<span>' + banana.avePrice.toFixed(2) + '</span>');
-		console.log(banana);
-		})
+	}	else {
+		alert('You can\'t do that! You gotta have money to buy stuff!');
+		}
+	})
 		$('#bb').on('click', function(){
 			if (banana.inventory > 0){
 			banana.inventory -= 1;
@@ -69,6 +75,7 @@ $(document).ready(function(){
 		})
 
 	$('#c').on('click', function(){
+		if ($wallet > 0 && $wallet > grape.price) {
 			grape.inventory += 1;
 			grape.totalSpent += grape.price;
 			grape.avePrice = grape.totalSpent / grape.inventory;
@@ -78,7 +85,10 @@ $(document).ready(function(){
 			$('.grape').find('#avgPrice').find('span').remove();
 			$('.grape').find('#avgPrice').append('<span>' + grape.avePrice.toFixed(2) + '</span>');
 			console.log(grape);
-			})
+		}	else {
+			alert('You can\'t do that! You gotta have money to buy stuff!');
+			}
+		})
 			$('#cc').on('click', function(){
 				if (grape.inventory > 0) {
 				grape.inventory -= 1;
@@ -88,6 +98,7 @@ $(document).ready(function(){
 				}
 			})
 	$('#d').on('click', function(){
+		if ($wallet > 0 && $wallet > orange.price) {
 			orange.inventory += 1;
 			orange.totalSpent += orange.price;
 			orange.avePrice = orange.totalSpent / orange.inventory;
@@ -97,7 +108,11 @@ $(document).ready(function(){
 			$('.orange').find('#avgPrice').find('span').remove();
 			$('.orange').find('#avgPrice').append('<span>' + orange.avePrice.toFixed(2) + '</span>');
 			console.log(orange);
+		}	else {
+			alert('You can\'t do that! You gotta have money to buy stuff!');
+			}
 	})
+
 	$('#dd').on('click', function(){
 		if (orange.inventory > 0){
 		orange.inventory -= 1;
@@ -107,20 +122,15 @@ $(document).ready(function(){
 		}
 	})
 
-$('.buy').on('click', function (){
+$('.buy, .sell').on('click', function (){
 	var $para = $('<p id="totalCash"></p>');
 	$para.append($wallet.toFixed(2));
 	$('header').find('#totalCash').remove();
 	$('header').append($para);
 	});
-	$('.sell').on('click', function (){
-		var $para = $('<p id="totalCash"></p>');
-		$para.append($wallet.toFixed(2));
-		$('header').find('#totalCash').remove();
-		$('header').append($para);
-		});
-	setInterval(priceUpdate, 1500);
 
+	setInterval(priceUpdate, 5000);
+});
 	function priceUpdate () {
 		apple.priceCalculator();
 		$('.apple').find('.price').find('span').remove();
@@ -135,4 +145,3 @@ $('.buy').on('click', function (){
 		$('.orange').find('.price').find('span').remove();
 		$('.orange').find('.price').append('<span> Price: ' + orange.price.toFixed(2) +'</span>');
 	}
-});
